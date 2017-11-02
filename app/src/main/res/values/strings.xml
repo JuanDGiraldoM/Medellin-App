@@ -1,0 +1,28 @@
+<resources>
+    <string name="lang_es">Español</string>
+    <string name="lang_en">Inglés</string>
+    <string name="lang_de">Alemán</string>
+
+    <string name="app_name">AppMed</string>
+    <string name="app_subtitle">Turismo</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Configuración</string>
+
+    <string-array name="languages">
+        <item>@string/lang_es</item>
+        <item>@string/lang_en</item>
+        <item>@string/lang_de</item>
+    </string-array>
+
+    <string name="nav_hotel">Hoteles</string>
+    <string name="nav_museum">Museos</string>
+    <string name="nav_wifi">Puntos Wi-Fi Gratis</string>
+    <string name="nav_estacion">Estaciones de Servicio</string>
+    <string name="nav_parque">Parques</string>
+    <string name="nav_restaurante">Restaurantes</string>
+    <string name="nav_hospital">Hospitales</string>
+
+</resources>
