@@ -1,38 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_station"
-            android:icon="@drawable/ic_local_gas_station"
-            android:title="@string/nav_estacion" />
-        <item
-            android:id="@+id/nav_hospital"
-            android:icon="@drawable/ic_local_hospital"
-            android:title="@string/nav_hospital" />
-        <item
-            android:id="@+id/nav_hotel"
-            android:icon="@drawable/ic_hotel"
-            android:title="@string/nav_hotel" />
-        <item
-            android:id="@+id/nav_museum"
-            android:icon="@drawable/ic_museum"
-            android:title="@string/nav_museum" />
-        <item
-            android:id="@+id/nav_park"
-            android:icon="@drawable/ic_wb_sunny"
-            android:title="@string/nav_parque" />
-        <item
-            android:id="@+id/nav_wifi"
-            android:icon="@drawable/ic_wifi"
-            android:title="@string/nav_wifi" />
-        <item
-            android:id="@+id/nav_restaurant"
-            android:icon="@drawable/ic_restaurant"
-            android:title="@string/nav_restaurante" />
-    </group>
+    <item android:title="@string/category">
+        <menu>
+            <item
+                android:id="@+id/nav_station"
+                android:icon="@drawable/ic_local_gas_station"
+                android:title="@string/nav_estacion" />
+            <item
+                android:id="@+id/nav_hospital"
+                android:icon="@drawable/ic_local_hospital"
+                android:title="@string/nav_hospital" />
+            <item
+                android:id="@+id/nav_hotel"
+                android:icon="@drawable/ic_hotel"
+                android:title="@string/nav_hotel" />
+            <item
+                android:id="@+id/nav_museum"
+                android:icon="@drawable/ic_museum"
+                android:title="@string/nav_museum" />
+            <item
+                android:id="@+id/nav_park"
+                android:icon="@drawable/ic_wb_sunny"
+                android:title="@string/nav_parque" />
+            <item
+                android:id="@+id/nav_wifi"
+                android:icon="@drawable/ic_wifi"
+                android:title="@string/nav_wifi" />
+            <item
+                android:id="@+id/nav_restaurant"
+                android:icon="@drawable/ic_restaurant"
+                android:title="@string/nav_restaurante" />
+        </menu>
+    </item>
 
     <item android:title="Communicate">
         <menu>

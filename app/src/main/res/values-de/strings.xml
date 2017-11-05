@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AppMed</string>
+    <string name="action_settings">Einstellung</string>
+    <string name="app_subname">Fremdenverkehr</string>
+    <string name="lang_en">Englisch</string>
+    <string name="lang_de">Deutsch</string>
+    <string name="lang_es">Spanisch</string>
+    <string name="nav_hotel">Hotels</string>
+    <string name="nav_museum">Museen</string>
+    <string name="nav_wifi">Kostenlose WiFi-Seiten</string>
+    <string name="nav_estacion">Tankstellen</string>
+    <string name="nav_hospital">Krankenhäuser</string>
+    <string name="nav_parque">Parks</string>
+    <string name="nav_restaurante">Restaurants</string>
+</resources>
