@@ -6,6 +6,9 @@ import android.net.NetworkInfo;
 import android.support.annotation.IntDef;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
+
 import java.lang.annotation.Retention;
 
 import static java.lang.annotation.RetentionPolicy.SOURCE;
@@ -27,6 +30,38 @@ public class Utilities {
     private @Activity
     int activity;
 
+    public static boolean hasConnection(Context context) {
+        ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = manager.getActiveNetworkInfo();
+        boolean state = networkInfo != null && networkInfo.isAvailable() && networkInfo.isConnected();
+        if (!state)
+            showAlert(context, "Comprueba tu conexión de red");
+        return state;
+    }
+
+    public static void showAlert(Context context, String message) {
+        Toast alert = Toast.makeText(context, message, Toast.LENGTH_LONG);
+        alert.show();
+    }
+
+    public static boolean isServicesOk(Context context) {
+        int available = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(context);
+
+        if (available == ConnectionResult.SUCCESS)
+            return true;
+        else
+            showAlert(context, "Ha ocurrido un error con Google Play Services");
+        return false;
+    }
+
+    public int getActivity() {
+        return activity;
+    }
+
+    public void setActivity(int activity) {
+        this.activity = activity;
+    }
+
     @Retention(SOURCE)
     @IntDef({
             ESTACIONES_SERVICIO,
@@ -39,25 +74,5 @@ public class Utilities {
     })
 
     public @interface Activity {
-    }
-
-    public int getActivity() {
-        return activity;
-    }
-
-    public void setActivity(int activity) {
-        this.activity = activity;
-    }
-
-    public static boolean hasConnection(Context context) {
-        ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = manager.getActiveNetworkInfo();
-        boolean state = networkInfo != null && networkInfo.isAvailable() && networkInfo.isConnected();
-        return state;
-    }
-
-    public static void showAlert (Context context, String message){
-        Toast alert = Toast.makeText(context, message, Toast.LENGTH_LONG);
-        alert.show();
     }
 }
