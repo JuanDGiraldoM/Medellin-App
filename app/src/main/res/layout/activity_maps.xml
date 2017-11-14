@@ -16,14 +16,17 @@
     <RelativeLayout
         android:id="@+id/relLayout"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="35dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/white_border"
         android:elevation="10dp">
 
         <ImageView
             android:id="@+id/ic_search"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_centerVertical="true"
             android:src="@drawable/ic_search" />
 
@@ -37,16 +40,39 @@
             android:hint="Ingrese una dirección"
             android:imeOptions="actionSearch"
             android:textColor="#000"
-            android:textSize="20dp" />
+            android:textSize="15dp" />
 
     </RelativeLayout>
 
     <ImageView
         android:id="@+id/ic_gps"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/place_info"
+        android:layout_marginRight="9dp"
+        android:scaleType="center"
+        android:src="@drawable/ic_my_location" />
+
+    <ImageView
+        android:id="@+id/place_info"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/relLayout"
-        android:scaleType="center"
-        android:src="@drawable/ic_my_location" />
+        android:layout_below="@id/ic_map"
+        android:layout_marginRight="19dp"
+        android:layout_marginTop="5dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_info" />
+
+    <ImageView
+        android:id="@+id/ic_map"
+        android:layout_alignParentRight="true"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/relLayout"
+        android:layout_marginRight="14dp"
+        android:layout_marginTop="10dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_map" />
 </RelativeLayout>

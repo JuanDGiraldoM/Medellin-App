@@ -1,6 +1,7 @@
 package co.edu.upb.appmed.Utilidades;
 
 import android.content.Context;
+import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.annotation.IntDef;
@@ -8,6 +9,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.lang.annotation.Retention;
 
@@ -26,7 +28,7 @@ public class Utilities {
     public static final int PARQUES = 4;
     public static final int ESTACIONES_WIFI = 5;
     public static final int RESTAURANTES = 6;
-
+    public static LatLng posicion_actual;
     private @Activity
     int activity;
 
@@ -60,6 +62,20 @@ public class Utilities {
 
     public void setActivity(int activity) {
         this.activity = activity;
+    }
+
+    public double calcularDistaciaKms(LatLng coordenadas) {
+        double radioTierra = 6371;
+        double dLat = Math.toRadians(coordenadas.latitude - posicion_actual.latitude);
+        double dLng = Math.toRadians(coordenadas.longitude - posicion_actual.longitude);
+        double sindLat = Math.sin(dLat / 2);
+        double sindLng = Math.sin(dLng / 2);
+        double va1 = Math.pow(sindLat, 2) + Math.pow(sindLng, 2)
+                * Math.cos(Math.toRadians(posicion_actual.latitude)) * Math.cos(Math.toRadians(coordenadas.latitude));
+        double va2 = 2 * Math.atan2(Math.sqrt(va1), Math.sqrt(1 - va1));
+        double distancia = radioTierra * va2;
+
+        return distancia;
     }
 
     @Retention(SOURCE)

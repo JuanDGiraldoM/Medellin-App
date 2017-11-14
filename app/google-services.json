@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "168474548650",
+    "firebase_url": "https://appmed-1509587198580.firebaseio.com",
+    "project_id": "appmed-1509587198580",
+    "storage_bucket": "appmed-1509587198580.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:168474548650:android:8d70e0eba2aa8d2e",
+        "android_client_info": {
+          "package_name": "co.edu.upb.appmed"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "168474548650-k1o3836b01f2ag6560r8b3u48r8fjboa.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "co.edu.upb.appmed",
+            "certificate_hash": "e635dd5a925333e42bb09342747c4edbab4a421e"
+          }
+        },
+        {
+          "client_id": "168474548650-u8cfsvpq9hbdvtrtssqhbe0trunulg6c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCKcLxCjfgjYcdsPk00Y7iwGAP_QD46RfU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "168474548650-u8cfsvpq9hbdvtrtssqhbe0trunulg6c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

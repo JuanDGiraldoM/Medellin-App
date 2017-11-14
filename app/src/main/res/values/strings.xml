@@ -4,7 +4,6 @@
     <string name="lang_de">Alemán</string>
 
     <string name="app_name">AppMed</string>
-    <string name="app_subtitle">Turismo</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -25,11 +24,14 @@
     <string name="nav_parque">Parques</string>
     <string name="nav_restaurante">Restaurantes</string>
     <string name="nav_hospital">Hospitales</string>
-    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_maps">Mapa</string>
     <string name="category">Categoría</string>
 
     <string name="title_activity_splash_screen">SplashScreenActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="app_subname">Turismo</string>
+    <string name="mapa">Mapa</string>
+    <string name="others">Otros</string>
 
 </resources>

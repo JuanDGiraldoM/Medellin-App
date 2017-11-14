@@ -18,6 +18,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Locale;
 
@@ -25,6 +32,8 @@ import co.edu.upb.appmed.Utilidades.Utilities;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private TextView txtIntro;
 
     private Locale locale;
     private Configuration config = new Configuration();
@@ -53,6 +62,7 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        txtIntro = findViewById(R.id.txtIntro);
     }
 
     @Override
@@ -135,26 +145,6 @@ public class MainActivity extends AppCompatActivity
                 startActivity(intent);
                 return true;
 
-            case R.id.nav_hotel:
-                intent.putExtra("activity", Utilities.HOTELES);
-                startActivity(intent);
-                return true;
-
-            case R.id.nav_museum:
-                intent.putExtra("activity", Utilities.MUSEOS);
-                startActivity(intent);
-                return true;
-
-            case R.id.nav_park:
-                intent.putExtra("activity", Utilities.PARQUES);
-                startActivity(intent);
-                return true;
-
-            case R.id.nav_restaurant:
-                intent.putExtra("activity", Utilities.RESTAURANTES);
-                startActivity(intent);
-                return true;
-
             case R.id.nav_wifi:
                 intent.putExtra("activity", Utilities.ESTACIONES_WIFI);
                 startActivity(intent);
@@ -165,6 +155,11 @@ public class MainActivity extends AppCompatActivity
                 startActivity(intent);
                 return true;
 
+            case R.id.nav_map:
+                Intent intent_maps = new Intent(this, MapsActivity.class);
+                startActivity(intent_maps);
+                return true;
+                
             default:
                 DrawerLayout drawer = findViewById(R.id.drawer_layout);
                 drawer.closeDrawer(GravityCompat.START);

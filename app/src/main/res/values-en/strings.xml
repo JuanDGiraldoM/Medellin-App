@@ -1,16 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">AppMed</string>
-    <string name="action_settings">Configuration</string>
-    <string name="app_subname">Turism</string>
-    <string name="lang_en">English</string>
     <string name="lang_es">Spanish</string>
+    <string name="lang_en">English</string>
+    <string name="lang_de">German</string>
+
+    <string name="app_name">AppMed</string>
+
+    <string name="action_settings">Configuration</string>
+    <string name="about">About</string>
+
     <string name="nav_hotel">Hotels</string>
     <string name="nav_museum">Museums</string>
-    <string name="nav_wifi">Free Wi-Fi Places</string>
-    <string name="lang_de">German</string>
-    <string name="nav_estacion">Gas Stations</string>
-    <string name="nav_hospital">Hospitals</string>
+    <string name="nav_wifi">Wi-Fi Places</string>
+    <string name="nav_estacion">Service Stations</string>
     <string name="nav_parque">Parks</string>
     <string name="nav_restaurante">Restaurants</string>
+    <string name="nav_hospital">Hospitals</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="category">Category</string>
+    <string name="app_subname">Turism</string>
+    <string name="mapa">Map</string>
+    <string name="others">Others</string>
 </resources>

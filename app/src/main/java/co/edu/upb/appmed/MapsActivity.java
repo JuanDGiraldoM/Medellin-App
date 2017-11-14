@@ -1,6 +1,7 @@
 package co.edu.upb.appmed;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -29,12 +30,14 @@ import com.google.android.gms.location.places.AutocompletePrediction;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.PlaceBuffer;
 import com.google.android.gms.location.places.Places;
+import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -43,6 +46,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import co.edu.upb.appmed.Data.InfoWindowAdapter;
 import co.edu.upb.appmed.Data.PlaceAutoCompleteAdapter;
 import co.edu.upb.appmed.Entidades.PlaceInfo;
 import co.edu.upb.appmed.Utilidades.Utilities;
@@ -54,14 +58,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
     private static final float DEFAULT_ZOOM = 14f;
     private static final LatLngBounds LAT_LNG_BOUNDS = new LatLngBounds(new LatLng(6.094316999999999, -75.63334700000001), new LatLng(6.150559, -75.61681999999996));
+    private static int PLACE_PICKER_REQUEST = 1;
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private boolean mLocationPermissionsGranted = false;
     private GoogleMap mMap;
     private PlaceAutoCompleteAdapter mPlaceAutoCompleteAdapter;
     private GoogleApiClient mGoogleApiClient;
     private PlaceInfo mPlace;
+    private Marker mMarker;
     private AutoCompleteTextView mSearchText;
-    private ImageView mGps;
+    private ImageView mGps, mInfo, mPlacePicker;
 
 
     private ResultCallback<PlaceBuffer> mUpdatePlaceDetailsCallback = new ResultCallback<PlaceBuffer>() {
@@ -86,7 +92,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             } catch (Exception e) {
 
             }
-            moveCamera(new LatLng(place.getViewport().getCenter().latitude, place.getViewport().getCenter().longitude), DEFAULT_ZOOM, mPlace.getNombre());
+            moveCamera(new LatLng(place.getViewport().getCenter().latitude, place.getViewport().getCenter().longitude), DEFAULT_ZOOM, mPlace);
 
             places.release();
         }
@@ -111,6 +117,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         getLocationPermission();
         mSearchText = findViewById(R.id.input_search);
         mGps = findViewById(R.id.ic_gps);
+        mInfo = findViewById(R.id.place_info);
+        mPlacePicker = findViewById(R.id.ic_map);
     }
 
     private void init() {
@@ -146,6 +154,46 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 getDeviceLocation();
             }
         });
+
+        mInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    if (mMarker.isInfoWindowShown()) {
+                        mMarker.hideInfoWindow();
+                    } else {
+                        mMarker.showInfoWindow();
+                    }
+                } catch (NullPointerException e) {
+
+                }
+            }
+        });
+
+        mPlacePicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+                try {
+                    startActivityForResult(builder.build(MapsActivity.this), PLACE_PICKER_REQUEST);
+                } catch (Exception e) {
+                    Utilities.showAlert(MapsActivity.this, "Ha ocurrido un error con el Selector de Mapa");
+                }
+            }
+        });
+
+        hideSoftKeyBoard();
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == PLACE_PICKER_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                Place place = PlacePicker.getPlace(this, data);
+                PendingResult<PlaceBuffer> placeResult = Places.GeoDataApi
+                        .getPlaceById(mGoogleApiClient, place.getId());
+                placeResult.setResultCallback(mUpdatePlaceDetailsCallback);
+            }
+        }
     }
 
     private void geoLocate() {
@@ -234,7 +282,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     public void onComplete(@NonNull Task task) {
                         if (task.isSuccessful()) {
                             Location currentLocation = (Location) task.getResult();
-                            moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()), DEFAULT_ZOOM, "My Location");
+                            Utilities.posicion_actual = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+                            moveCamera(Utilities.posicion_actual, DEFAULT_ZOOM, "My Location");
                         } else {
                             Utilities.showAlert(MapsActivity.this, "Ubicación no disponible");
                         }
@@ -257,6 +306,31 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
         hideSoftKeyBoard();
     }
+
+    private void moveCamera(LatLng latLng, float zoom, PlaceInfo placeInfo) {
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
+        mMap.clear();
+        mMap.setInfoWindowAdapter(new InfoWindowAdapter(MapsActivity.this));
+        if (placeInfo != null) {
+            try {
+                String snippet = "Dirección: " + placeInfo.getDireccion() + "\n" +
+                        "Teléfono: " + placeInfo.getTelefono() + "\n" +
+                        "Website: " + placeInfo.getWebsiteUri() + "\n" +
+                        "Rating: " + placeInfo.getRating() + "\n";
+                MarkerOptions options = new MarkerOptions()
+                        .position(latLng)
+                        .title(placeInfo.getNombre())
+                        .snippet(snippet);
+                mMarker = mMap.addMarker(options);
+            } catch (Exception e) {
+                Utilities.showAlert(this, "Ha ocurrido un error con el marcador");
+            }
+        } else {
+            mMap.addMarker(new MarkerOptions().position((latLng)));
+        }
+        hideSoftKeyBoard();
+    }
+
 
     private void hideSoftKeyBoard() {
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
