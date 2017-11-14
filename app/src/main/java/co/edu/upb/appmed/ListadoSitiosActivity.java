@@ -1,9 +1,12 @@
 package co.edu.upb.appmed;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.FirebaseDatabase;
@@ -116,5 +119,25 @@ public class ListadoSitiosActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         mAdapter.cleanup();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_place, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.control_map:
+                Intent intent_maps = new Intent(this, MapsActivity.class);
+                startActivity(intent_maps);
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
     }
 }
